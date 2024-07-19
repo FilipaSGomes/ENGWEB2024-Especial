@@ -1,0 +1,10 @@
+db.listas.find({"produtos.designacao": "Broa"}).count();
+
+db.listas.find({"produtos.designacao": "Nabos"}).count();
+
+db.listas.aggregate([{ $unwind: "$produtos" },{ $group: { _id: "$produtos.categoria" } },{ $sort: { _id: 1 } },{ $project: { _id: 0, categoria: "$_id" } }]).toArray();
+
+db.listas.aggregate([{ $unwind: "$produtos" },{ $group: { _id: "$produtos.categoria", produtos: { $addToSet: "$produtos.designacao" } } },{ $project: { _id: 1, count: { $size: "$produtos" } } },{ $sort: { _id: 1 } }]).toArray();
+
+db.listas.find({ "produtos.designacao": "Batata" },{ _id: 0, designacao: 1, data: 1 }).sort({ data: 1 }).toArray();
+

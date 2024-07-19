@@ -1,0 +1,28 @@
+extends layout
+
+block content
+    h3 ID : #{produto._id}
+    h3 Designação : #{produto.designacao}
+    h3 Categoria : #{produto.categoria}
+    h3 Quantidade : #{produto.quantidade.valor} #{produto.quantidade.unidade}
+    h3 Nº de Listas :
+
+    table
+        thead
+            tr
+                th ID
+                th Designação
+                th Data
+                th Nº Produtos
+                th Quantidade do produto
+        for lista in produto.listas
+            tbody
+                tr
+                    td
+                        a(href='/listas/' + lista._id)= lista._id
+                    td= lista.designacao
+                    td= lista.data
+                    td= lista.produtos.length
+                    td= lista.produtos.filter(p => p.designacao == produto.designacao)[0].quantidade.valor + ' ' + lista.produtos.filter(p => p._id == produto._id)[0].quantidade.unidade
+
+    a(href='/produtos') Voltar

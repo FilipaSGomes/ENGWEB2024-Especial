@@ -1,0 +1,26 @@
+extends layout
+
+block content
+    h3 ID : #{lista._id}
+    h3 Designação : #{lista.designacao}
+    h3 Data : #{lista.data}
+    h3 Nº Produtos : #{lista.produtos.length}
+    table
+        thead
+            tr
+                th ID
+                th Designação
+                th Categoria
+                th Quantidade
+        for p in lista.produtos
+            tbody
+                tr
+                    td #{p._id}
+                    td #{p.designacao}
+                    td #{p.categoria}
+                    td #{p.quantidade.valor} #{p.quantidade.unidade}
+    a(href='/') Voltar
+
+
+
+        
